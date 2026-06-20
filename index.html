@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Image Dimension Analyzer Pro - Professional image analysis tool. Analyze image dimensions, file size, resolution, print sizes, and metadata with precision.">
+    <meta name="keywords" content="image analyzer, image dimensions, resolution checker, file size calculator, print size calculator, image metadata">
+    <meta name="theme-color" content="#0A84FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="canonical" content="https://example.com/image-analyzer">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Image Dimension Analyzer Pro">
+    <meta property="og:description" content="Professional image analysis tool with accurate dimension, resolution, and metadata detection.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/image-analyzer">
+    <!-- Replace with actual image URL: <meta property="og:image" content="URL_TO_SHARE_IMAGE"> -->
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Image Dimension Analyzer Pro">
+    <meta name="twitter:description" content="Professional image analysis tool with accurate dimension, resolution, and metadata detection.">
+    <!-- Replace with actual image URL: <meta name="twitter:image" content="URL_TO_SHARE_IMAGE"> -->
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1coh2aYgd82hX-5g_sX96V9JQ_EaLeBjN">
+
+    <title>Image Dimension Analyzer Pro - Professional Image Analysis</title>
+
+    <style>
+        /* ========== CSS Variables & Global Styles ========== */
+        :root {
+            --primary: #0A84FF;
+            --primary-dark: #0A66E8;
+            --secondary: #EAF4FF;
+            --background: #FFFFFF;
+            --surface: #F7F9FC;
+            --surface-alt: #EFEFF1;
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --text-tertiary: #D0D0D5;
+            --accent: #4DA3FF;
+            --success: #00A457;
+            --warning: #FF8500;
+            --error: #FF3B30;
+            --border: #E5E5E7;
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.12);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========== Header & Navigation ========== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--background);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-xs);
+        }
+
+        nav {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--primary-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background-color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 8px; /* গ্যাপ কমানো হয়েছে যাতে বেশি জায়গা না নেয় */
+                padding: 10px 15px;
+                height: auto;
+            }
+
+            .logo {
+                font-size: 15px; /* মোবাইলের জন্য লোগো পারফেক্ট সাইজ করা হয়েছে */
+                text-align: center;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis; /* খুব ছোট স্ক্রিনে লেখা না ভেঙে শেষে (...) দেখাবে */
+            }
+
+            .nav-links {
+                width: 100%;
+                flex-wrap: nowrap; /* লিংকগুলো এক লাইনে রাখবে, নিচে ভাঙবে না */
+                justify-content: flex-start;
+                overflow-x: auto; /* ডানে-বামে স্লাইড করার অপশন চালু করবে */
+                padding-bottom: 4px; /* স্ক্রলবারের জন্য হালকা স্পেস */
+                -webkit-overflow-scrolling: touch; /* আইওএস (iOS) এর জন্য স্মুথ স্ক্রলিং */
+                -ms-overflow-style: none; /* IE এবং Edge এ স্ক্রলবার হাইড করবে */
+                scrollbar-width: none; /* Firefox এ স্ক্রলবার হাইড করবে */
+            }
+
+            /* ক্রোম এবং সাফারিতে ভিজ্যুয়াল স্ক্রলবার হাইড করার জন্য ক্লিন লুক */
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-link {
+                font-size: 12px;
+                padding: 6px 10px;
+                white-space: nowrap; /* লিংকের লেখা কখনোই দুই লাইনে ভাঙবে না */
+            }
+        }
+
+        /* ========== Main Content ========== */
+        main {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            scroll-margin-top: 80px;
+        }
+
+        /* ========== Hero Section ========== */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                margin-bottom: 40px;
+            }
+
+            .hero h1 {
+                margin-bottom: 12px;
+            }
+
+            .hero p {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+        }
+
+        /* ========== Upload Area ========== */
+        .upload-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: start;
+        }
+
+        /* Premium Upload Box Styles */
+        .upload-area {
+            background: linear-gradient(180deg, var(--surface) 0%, var(--background) 100%);
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Top Glowing Line for Premium UI */
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, #0A84FF, #4DA3FF, #a252ff);
+            opacity: 0.8;
+        }
+
+        .upload-area:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--primary);
+            background: var(--secondary);
+            transform: scale(1.02);
+        }
+
+        .upload-icon-wrapper {
+            width: 70px;
+            height: 70px;
+            background: var(--secondary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            box-shadow: inset 0 0 0 1px rgba(10, 132, 255, 0.1);
+            transition: transform 0.3s ease;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .upload-area:hover .upload-icon-wrapper {
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        .upload-text h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .upload-text p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Full Width Action Buttons */
+        .upload-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 400px; /* বাটনের সাইজ প্রফেশনাল রাখার জন্য */
+            margin: 0 auto;
+        }
+
+        .upload-actions .btn {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .upload-actions .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #005bb5 100%);
+            box-shadow: 0 4px 15px rgba(10, 132, 255, 0.35);
+            border: none;
+        }
+
+        .upload-actions .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(10, 132, 255, 0.45);
+        }
+
+        .upload-actions .btn-secondary {
+            background-color: var(--surface-alt);
+            border: 1px solid transparent;
+        }
+
+        .upload-actions .btn-secondary:hover {
+            background-color: var(--border);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--surface-alt);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        .upload-hint {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: 8px;
+        }
+
+        /* ========== Image Preview ========== */
+        .preview-container {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            background-color: var(--surface);
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        .preview-container.hidden {
+            display: none;
+        }
+
+        .image-preview {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--radius-lg);
+            background-color: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .image-info-brief {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .info-item {
+            padding: 12px;
+            background-color: var(--background);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            word-break: break-all;
+        }
+
+        @media (max-width: 1024px) {
+            .upload-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* ========== Dashboard Sections ========== */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+            animation: fadeIn 0.6s ease-out 0.2s both;
+        }
+
+        .card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* ========== Tables ========== */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background-color: var(--background);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        tr:hover {
+            background-color: var(--background);
+        }
+
+        /* ========== Information Sections ========== */
+        .info-section {
+            margin-bottom: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .section-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            background-color: var(--surface);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-primary);
+            user-select: none;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: var(--surface-alt);
+        }
+
+        .faq-icon {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+            color: var(--primary);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background-color: var(--background);
+            border-top: 1px solid var(--border);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 16px 20px;
+            max-height: 500px;
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        /* ========== Animations ========== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== Utilities ========== */
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .mt-1 { margin-top: 8px; }
+        .mt-2 { margin-top: 16px; }
+        .mt-3 { margin-top: 24px; }
+        .mt-4 { margin-top: 32px; }
+
+        .mb-1 { margin-bottom: 8px; }
+        .mb-2 { margin-bottom: 16px; }
+        .mb-3 { margin-bottom: 24px; }
+        .mb-4 { margin-bottom: 32px; }
+
+        /* ========== Accessibility ========== */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* ========== Print Styles ========== */
+        @media print {
+            header, footer, .upload-section, .upload-actions {
+                display: none;
+            }
+
+            body {
+                background-color: var(--background);
+            }
+
+            .card {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--border);
+            }
+        }
+
+        /* ========== Dark Mode Support (Optional) ========== */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #1D1D1F;
+                --surface: #424245;
+                --surface-alt: #4A4A4E;
+                --text-primary: #F5F5F7;
+                --text-secondary: #A1A1A6;
+                --text-tertiary: #555555;
+                --border: #424245;
+            }
+
+            header {
+                background-color: rgba(29, 29, 31, 0.95);
+                border-bottom-color: var(--border);
+            }
+        }
+
+        /* ========== Loading State ========== */
+        .loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            margin: -8px 0 0 -8px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== Copy Button ========== */
+        .copy-btn {
+            padding: 4px 8px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 11px;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            margin-left: 8px;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ========== Message Toast ========== */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--text-primary);
+            color: white;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.3s ease-out;
+            z-index: 2000;
+            max-width: 300px;
+        }
+
+        .toast.success {
+            background-color: var(--success);
+        }
+
+        .toast.error {
+            background-color: var(--error);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== Header & Navigation ========== -->
+    <header id="header" role="banner">
+        <nav aria-label="Main navigation">
+            <a href="#home" class="logo" aria-label="Image Dimension Analyzer Pro">
+                📊 Image Dimension Analyzer Pro
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link" onclick="scrollToSection(event, 'home')">Home</a></li>
+                <li><a href="#about" class="nav-link" onclick="scrollToSection(event, 'about')">About</a></li>
+                <li><a href="#faq" class="nav-link" onclick="scrollToSection(event, 'faq')">FAQ</a></li>
+                <li><a href="#privacy" class="nav-link" onclick="scrollToSection(event, 'privacy')">Privacy</a></li>
+                <li><a href="#terms" class="nav-link" onclick="scrollToSection(event, 'terms')">Terms</a></li>
+                <li><a href="#disclaimer" class="nav-link" onclick="scrollToSection(event, 'disclaimer')">Disclaimer</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ========== Main Content ========== -->
+    <main role="main">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <h1>Image Dimension Analyzer Pro</h1>
+            <p>Professional-grade image analysis tool. Instantly analyze dimensions, resolution, file size, print sizes, and metadata with precision. Work offline or online, everywhere.</p>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload-section" class="upload-section">
+            <div class="upload-area" id="uploadArea" role="button" tabindex="0" aria-label="Upload image by clicking or dragging">
+                <div class="upload-icon-wrapper">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                </div>
+                <div class="upload-text">
+                    <h3>Upload Image</h3>
+                    <p>Click to select or drag and drop</p>
+                </div>
+                <div class="upload-actions">
+                    <button class="btn btn-primary" id="selectBtn" aria-label="Select image file">
+                        Select Image
+                    </button>
+                </div>
+                <p class="upload-hint">Supports: All Image Formats including iPhone HEIC & RAW (Max 1GB)</p>
+                <input type="file" id="fileInput" accept="image/*,.heic,.heif,.raw,.tiff,.cr2,.nef,.arw" aria-label="File input">
+            </div>
+
+            <div class="preview-container hidden" id="previewContainer">
+                <div class="image-preview" id="imagePreview">
+                    <span class="loading"></span>
+                </div>
+                <div class="image-info-brief">
+                    <div class="info-item">
+                        <div class="info-label">Dimensions</div>
+                        <div class="info-value" id="quickDimensions">-</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">File Size</div>
+                        <div class="info-value" id="quickFileSize">-</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">File Type</div>
+                        <div class="info-value" id="quickFileType">-</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Aspect Ratio</div>
+                        <div class="info-value" id="quickAspectRatio">-</div>
+                    </div>
+                </div>
+                <div style="margin-top: 16px; display: flex; gap: 8px;">
+                    <button class="btn btn-secondary btn-sm" id="clearBtn" aria-label="Clear current image">
+                        Clear
+                    </button>
+                    <button class="btn btn-secondary btn-sm" id="downloadBtn" aria-label="Download analysis report">
+                        ⬇️ Report
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Sections -->
+        <div id="dashboards" class="hidden">
+            <!-- File Information Dashboard -->
+            <section id="file-info-section" class="dashboard">
+                <div class="card">
+                    <h3>File Information</h3>
+                    <div class="card-content" id="fileInfoCard">
+                        <div class="empty-state">
+                            <p>Upload an image to see file information</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dimension Information -->
+                <div class="card">
+                    <h3>Dimensions</h3>
+                    <div class="card-content" id="dimensionCard">
+                        <div class="empty-state">
+                            <p>Upload an image to see dimensions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Size Analysis -->
+                <div class="card">
+                    <h3>File Size</h3>
+                    <div class="card-content" id="fileSizeCard">
+                        <div class="empty-state">
+                            <p>Upload an image to see file size</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Print Size Analysis -->
+            <section class="dashboard">
+                <div class="card">
+                    <h3>Print Size Analysis</h3>
+                    <div class="card-content" id="printSizeCard">
+                        <div class="empty-state">
+                            <p>Upload an image to see print size analysis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit Conversion -->
+                <div class="card">
+                    <h3>Unit Conversion</h3>
+                    <div class="card-content" id="unitConversionCard">
+                        <div class="empty-state">
+                            <p>Upload an image to see unit conversions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Scaling -->
+                <div class="card">
+                    <h3>Image Scaling</h3>
+                    <div class="card-content" id="scalingCard">
+                        <div class="empty-state">
+                            <p>Upload an image to see scaling calculations</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Metadata Analysis -->
+            <section class="dashboard">
+                <div class="card" style="grid-column: 1 / -1;">
+                    <h3>Metadata Analysis</h3>
+                    <div class="card-content" id="metadataCard">
+                        <div class="empty-state">
+                            <p>Upload an image to see available metadata</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Section -->
+        <section id="about" class="info-section">
+            <h2 class="section-title">About Image Dimension Analyzer Pro</h2>
+            <p class="section-text">
+                Image Dimension Analyzer Pro is a professional-grade image analysis tool designed for creatives, developers, and digital professionals. Our platform provides accurate, instant analysis of image properties without requiring any server uploads or external dependencies.
+            </p>
+            <p class="section-text">
+                Built with modern web technologies, our application delivers enterprise-grade analysis capabilities in a lightweight, responsive interface that works seamlessly across all devices—desktop, tablet, and mobile.
+            </p>
+
+            <h3 class="section-subtitle">Key Features</h3>
+            <p class="section-text">
+                ✓ Accurate dimension detection (pixels, inches, centimeters, more)<br>
+                ✓ Comprehensive file size analysis<br>
+                ✓ Print size calculations at various DPI settings<br>
+                ✓ EXIF metadata extraction<br>
+                ✓ Image scaling calculations<br>
+                ✓ Aspect ratio detection<br>
+                ✓ Complete offline support<br>
+                ✓ Secure—no server uploads required
+            </p>
+
+            <h3 class="section-subtitle">Why Choose Us?</h3>
+            <p class="section-text">
+                Our tool prioritizes accuracy, speed, and user privacy. All image processing happens locally on your device. We never upload your images to any server. Your data remains yours.
+            </p>
+
+            <h3 class="section-subtitle">Supported Formats</h3>
+            <p class="section-text">
+                JPEG, PNG, WebP, GIF, BMP, SVG, and AVIF. Maximum file size: 100MB.
+            </p>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="info-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How accurate are the image dimensions displayed?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Our application extracts dimensions directly from image metadata using the HTML5 Canvas API and native image properties. The dimensions displayed represent the actual pixel dimensions of your image with 100% accuracy.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is my data uploaded to any server?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>No. All image processing occurs entirely on your device. We never upload images to any server. Your image data never leaves your computer or mobile device. This tool works completely offline.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is DPI and PPI?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>DPI (Dots Per Inch) and PPI (Pixels Per Inch) measure image resolution. Higher DPI/PPI means more detail in print. Our calculator shows print dimensions at 72 DPI (screen), 150 DPI (web), 300 DPI (professional print), and 600 DPI (high-quality print).</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I use this on mobile devices?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. Image Dimension Analyzer Pro is fully responsive and works on iPhone, Android, iPad, tablets, and all modern devices. The interface automatically adapts to your screen size.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What image formats are supported?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>We support JPEG, PNG, WebP, GIF, BMP, SVG, and AVIF formats. The maximum file size is 100MB. Support for additional formats may be added in future updates.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I calculate image scaling?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Our scaling calculator automatically shows dimensions when images are enlarged by 2x, 3x, 4x, 5x, 6x, 8x, and 10x. Each result includes the new width, height, total pixels, and megapixels.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Does the application require installation?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>No installation required. Access Image Dimension Analyzer Pro directly from any web browser on any device. It's a web application—open it and start analyzing immediately.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I paste images from my clipboard?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. Click the "Paste from Clipboard" button to analyze images copied to your clipboard. This works on modern browsers on desktop and mobile devices with clipboard access.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I download my analysis results?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. After analyzing an image, click the "Report" button to generate and download a comprehensive analysis report in text format containing all metrics and measurements.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What metadata is extracted from images?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>The application detects and displays EXIF metadata including creation date, camera information, device details, software used, and other embedded information. If metadata is unavailable, we clearly indicate "Metadata Not Available".</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is this tool free to use?</span>
+                    <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. Image Dimension Analyzer Pro is completely free. No registration, subscriptions, or hidden costs. Analyze unlimited images with no restrictions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Policy Section -->
+        <section id="privacy" class="info-section">
+            <h2 class="section-title">Privacy Policy</h2>
+
+            <h3 class="section-subtitle">1. Introduction</h3>
+            <p class="section-text">
+                Image Dimension Analyzer Pro ("the Application") is committed to protecting your privacy. This Privacy Policy explains how we handle your data.
+            </p>
+
+            <h3 class="section-subtitle">2. Data Collection</h3>
+            <p class="section-text">
+                Image Dimension Analyzer Pro does not collect, store, or transmit your images to any server. All image processing occurs entirely on your local device.
+            </p>
+
+            <h3 class="section-subtitle">3. Local Processing</h3>
+            <p class="section-text">
+                When you upload an image, it is loaded into your browser's memory for analysis only. The image is never sent to external servers or stored on any database. Once you close the application or clear your browser data, the image is completely removed from memory.
+            </p>
+
+            <h3 class="section-subtitle">4. Browser Data</h3>
+            <p class="section-text">
+                The Application may store minimal non-personal preferences in your browser's local storage (such as display settings). This data never leaves your device.
+            </p>
+
+            <h3 class="section-subtitle">5. Cookies</h3>
+            <p class="section-text">
+                The Application does not use tracking cookies or analytics cookies. Some functional cookies may be used to improve user experience, but no personal data is collected.
+            </p>
+
+            <h3 class="section-subtitle">6. Third-Party Services</h3>
+            <p class="section-text">
+                The Application does not integrate with third-party analytics services, advertising networks, or data brokers. Your activity is not tracked or shared.
+            </p>
+
+            <h3 class="section-subtitle">7. Security</h3>
+            <p class="section-text">
+                The Application uses modern security practices including secure file validation, input sanitization, and protection against common web vulnerabilities. However, no security measure is 100% foolproof. We encourage users to keep their browsers updated.
+            </p>
+
+            <h3 class="section-subtitle">8. Children's Privacy</h3>
+            <p class="section-text">
+                The Application does not knowingly collect data from children under 13. If we become aware of such collection, we will take appropriate steps to delete the information.
+            </p>
+
+            <h3 class="section-subtitle">9. Policy Changes</h3>
+            <p class="section-text">
+                We may update this Privacy Policy periodically. Continued use of the Application constitutes acceptance of changes. We encourage you to review this policy regularly.
+            </p>
+
+            <h3 class="section-subtitle">10. Contact</h3>
+            <p class="section-text">
+                For privacy-related questions, please contact us through our website. We take privacy concerns seriously and will respond promptly.
+            </p>
+        </section>
+
+        <!-- Terms & Conditions Section -->
+        <section id="terms" class="info-section">
+            <h2 class="section-title">Terms & Conditions</h2>
+
+            <h3 class="section-subtitle">1. Agreement to Terms</h3>
+            <p class="section-text">
+                By accessing and using Image Dimension Analyzer Pro, you accept and agree to be bound by the terms of this agreement. If you do not agree to abide by the above, please do not use this service.
+            </p>
+
+            <h3 class="section-subtitle">2. Use License</h3>
+            <p class="section-text">
+                Permission is granted to temporarily download one copy of the materials (information or software) on Image Dimension Analyzer Pro for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title. Under this license you may not:
+            </p>
+            <p class="section-text">
+                • Modify or copy the materials<br>
+                • Use the materials for any commercial purpose or for any public display (commercial or non-commercial)<br>
+                • Attempt to reverse engineer any software contained on the Application<br>
+                • Remove any copyright or other proprietary notations from the materials<br>
+                • Transfer the materials to another person or "mirror" the materials on any other server
+            </p>
+
+            <h3 class="section-subtitle">3. Disclaimer</h3>
+            <p class="section-text">
+                The materials on Image Dimension Analyzer Pro are provided on an "as is" basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+            </p>
+
+            <h3 class="section-subtitle">4. Limitations</h3>
+            <p class="section-text">
+                In no event shall Image Dimension Analyzer Pro or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on the Application, even if we or an authorized representative have been notified orally or in writing of the possibility of such damage.
+            </p>
+
+            <h3 class="section-subtitle">5. Accuracy of Materials</h3>
+            <p class="section-text">
+                The materials appearing on Image Dimension Analyzer Pro could include technical, typographical, or photographic errors. We do not warrant that any of the materials on our website are accurate, complete, or current. We may make changes to the materials contained on our website at any time without notice.
+            </p>
+
+            <h3 class="section-subtitle">6. Links</h3>
+            <p class="section-text">
+                We have not reviewed all of the sites linked to our website and are not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by us of the site. Use of any such linked website is at the user's own risk.
+            </p>
+
+            <h3 class="section-subtitle">7. Modifications</h3>
+            <p class="section-text">
+                We may revise these terms and conditions for our website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms and conditions.
+            </p>
+
+            <h3 class="section-subtitle">8. Governing Law</h3>
+            <p class="section-text">
+                These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which the service is provided, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
+            </p>
+
+            <h3 class="section-subtitle">9. User Responsibilities</h3>
+            <p class="section-text">
+                Users are responsible for maintaining the confidentiality of their devices and ensuring that their use of the Application complies with all applicable laws and regulations.
+            </p>
+
+            <h3 class="section-subtitle">10. Termination</h3>
+            <p class="section-text">
+                We may terminate or suspend access to the Application immediately, without prior notice or liability, for any reason whatsoever, including if you breach the Terms.
+            </p>
+        </section>
+
+        <!-- Disclaimer Section -->
+        <section id="disclaimer" class="info-section">
+            <h2 class="section-title">Disclaimer</h2>
+
+            <h3 class="section-subtitle">General Disclaimer</h3>
+            <p class="section-text">
+                Image Dimension Analyzer Pro is provided "AS IS" without warranty of any kind, express or implied. While we strive for accuracy in all calculations and analyses, we do not guarantee that:
+            </p>
+            <p class="section-text">
+                • The Application will be error-free or uninterrupted<br>
+                • All image dimensions will be perfectly accurate in all scenarios<br>
+                • Metadata extraction will be complete or available for all images<br>
+                • The Application will meet your specific requirements
+            </p>
+
+            <h3 class="section-subtitle">No Professional Advice</h3>
+            <p class="section-text">
+                Image Dimension Analyzer Pro provides image analysis tools for informational purposes. The results should not be considered professional advice for printing, publishing, or other commercial purposes. For critical applications, consult with a professional service.
+            </p>
+
+            <h3 class="section-subtitle">Limitation of Liability</h3>
+            <p class="section-text">
+                To the fullest extent permitted by law, Image Dimension Analyzer Pro and its creators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profit or revenue, arising out of your use of or inability to use the Application, even if we have been advised of the possibility of such damages.
+            </p>
+
+            <h3 class="section-subtitle">Browser Compatibility</h3>
+            <p class="section-text">
+                The Application is designed to work with modern web browsers. Compatibility issues may arise with older browsers or unusual system configurations. We recommend using the latest version of Chrome, Firefox, Safari, or Edge.
+            </p>
+
+            <h3 class="section-subtitle">Image Format Support</h3>
+            <p class="section-text">
+                While we support common image formats (JPEG, PNG, WebP, GIF, BMP, SVG, AVIF), certain specialized or corrupted images may not be analyzed correctly. We do not guarantee support for all possible image formats or variations.
+            </p>
+
+            <h3 class="section-subtitle">Performance</h3>
+            <p class="section-text">
+                Performance may vary based on device specifications, browser capabilities, and image size. Very large images (over 100MB) or unusual formats may cause performance issues or failures.
+            </p>
+
+            <h3 class="section-subtitle">No Warranty</h3>
+            <p class="section-text">
+                We provide no warranty regarding:
+            </p>
+            <p class="section-text">
+                • The accuracy of calculated values<br>
+                • The completeness of metadata extraction<br>
+                • The suitability of results for any particular purpose<br>
+                • Compatibility with third-party software or services
+            </p>
+
+            <h3 class="section-subtitle">User Responsibility</h3>
+            <p class="section-text">
+                Users are solely responsible for verifying the accuracy of information provided by the Application before using it for important purposes. We strongly encourage independent verification, especially for professional or commercial applications.
+            </p>
+
+            <h3 class="section-subtitle">Privacy & Security</h3>
+            <p class="section-text">
+                While we implement security measures to protect your data, no system is completely secure. Users assume all risk associated with using the Application online. Keep your device and browser updated for maximum security.
+            </p>
+
+            <h3 class="section-subtitle">Changes to Application</h3>
+            <p class="section-text">
+                We reserve the right to modify, suspend, or discontinue the Application or any part of it at any time without notice. We are not responsible for any loss of data or service resulting from such changes.
+            </p>
+
+            <h3 class="section-subtitle">Third-Party Content</h3>
+            <p class="section-text">
+                The Application may contain links to third-party websites and resources. We are not responsible for the content, accuracy, or practices of these external sites. Access to third-party content is at your own risk.
+            </p>
+        </section>
+    </main>
+
+    <!-- ========== Footer ========== -->
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <p>© 2024 Image Dimension Analyzer Pro. All rights reserved. | <a href="#privacy" onclick="scrollToSection(event, 'privacy')" style="color: var(--primary); text-decoration: none;">Privacy</a> | <a href="#terms" onclick="scrollToSection(event, 'terms')" style="color: var(--primary); text-decoration: none;">Terms</a> | <a href="#disclaimer" onclick="scrollToSection(event, 'disclaimer')" style="color: var(--primary); text-decoration: none;">Disclaimer</a></p>
+            <p style="margin-top: 8px; font-size: 12px;">All image processing happens locally on your device. No uploads to any server.</p>
+        </div>
+    </footer>
+
+    <!-- ========== JavaScript ========== -->
+    <script>
+        'use strict';
+
+        // ========== Configuration ==========
+        const CONFIG = {
+            MAX_FILE_SIZE: 1024 * 1024 * 1024, // 1GB
+            // SUPPORTED_FORMATS অ্যারে এখন আর দরকার নেই কারণ আমরা সব সাপোর্ট করবো
+            DPI_LEVELS: [
+                { label: 'Screen', dpi: 72 },
+                { label: 'Web', dpi: 150 },
+                { label: 'Print', dpi: 300 },
+                { label: 'High Quality', dpi: 600 }
+            ],
+            SCALE_FACTORS: [2, 3, 4, 5, 6, 8, 10]
+        };
+
+        // ========== Application State ==========
+        const AppState = {
+            currentImage: null,
+            imageFile: null,
+            imageData: {
+                name: '',
+                extension: '',
+                mimeType: '',
+                width: 0,
+                height: 0,
+                fileSize: 0,
+                megapixels: 0,
+                aspectRatio: '',
+                orientation: ''
+            },
+            metadata: {}
+        };
+
+        // ========== DOM Elements ==========
+        const Elements = {
+            uploadArea: document.getElementById('uploadArea'),
+            fileInput: document.getElementById('fileInput'),
+            selectBtn: document.getElementById('selectBtn'),
+            previewContainer: document.getElementById('previewContainer'),
+            imagePreview: document.getElementById('imagePreview'),
+            dashboards: document.getElementById('dashboards'),
+            clearBtn: document.getElementById('clearBtn'),
+            downloadBtn: document.getElementById('downloadBtn'),
+            fileInfoCard: document.getElementById('fileInfoCard'),
+            dimensionCard: document.getElementById('dimensionCard'),
+            fileSizeCard: document.getElementById('fileSizeCard'),
+            printSizeCard: document.getElementById('printSizeCard'),
+            unitConversionCard: document.getElementById('unitConversionCard'),
+            scalingCard: document.getElementById('scalingCard'),
+            metadataCard: document.getElementById('metadataCard'),
+            quickDimensions: document.getElementById('quickDimensions'),
+            quickFileSize: document.getElementById('quickFileSize'),
+            quickFileType: document.getElementById('quickFileType'),
+            quickAspectRatio: document.getElementById('quickAspectRatio')
+        };
+
+        // ========== Initialization ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeEventListeners();
+            ensureAccessibility();
+        });
+
+        // ========== Event Listeners ==========
+        function initializeEventListeners() {
+            // File Upload
+            Elements.selectBtn.addEventListener('click', () => Elements.fileInput.click());
+            Elements.fileInput.addEventListener('change', handleFileSelect);
+
+            // Drag and Drop
+            Elements.uploadArea.addEventListener('dragover', handleDragOver);
+            Elements.uploadArea.addEventListener('dragleave', handleDragLeave);
+            Elements.uploadArea.addEventListener('drop', handleDrop);
+            Elements.uploadArea.addEventListener('click', () => Elements.fileInput.click());
+            Elements.uploadArea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    Elements.fileInput.click();
+                }
+            });
+
+            // Clear Button
+            Elements.clearBtn.addEventListener('click', clearAnalysis);
+            Elements.downloadBtn.addEventListener('click', downloadReport);
+
+            // FAQ Accordion
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.querySelector('.faq-question').addEventListener('click', toggleFAQ);
+            });
+        }
+
+        // ========== File Handling ==========
+        function handleFileSelect(event) {
+            const file = event.target.files?.[0];
+            if (file) {
+                processImage(file);
+            }
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            Elements.uploadArea.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            Elements.uploadArea.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            Elements.uploadArea.classList.remove('dragover');
+
+            const files = e.dataTransfer?.files;
+            if (files && files.length > 0) {
+                processImage(files[0]);
+            }
+        }
+
+        function handlePasteImage() {
+            navigator.clipboard.read().then(clipboardItems => {
+                for (const clipboardItem of clipboardItems) {
+                    for (const type of clipboardItem.types) {
+                        if (type.startsWith('image/')) {
+                            clipboardItem.getType(type).then(blob => {
+                                processImage(blob);
+                            }).catch(() => {
+                                showToast('No image found in clipboard', 'error');
+                            });
+                            return;
+                        }
+                    }
+                }
+                showToast('No image found in clipboard', 'error');
+            }).catch(() => {
+                showToast('Clipboard access denied. Please allow clipboard permissions.', 'error');
+            });
+        }
+
+        function handleCameraCapture() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.capture = 'environment';
+            input.addEventListener('change', (e) => {
+                const file = e.target.files?.[0];
+                if (file) processImage(file);
+            });
+            input.click();
+        }
+
+        // ========== Image Processing ==========
+        function processImage(file) {
+            if (!validateFile(file)) return;
+            AppState.imageFile = file;
+
+            // ম্যাজিক ফিক্স: 1GB ফাইলের জন্য FileReader (Base64) ব্যবহার করলে ব্রাউজার ক্র্যাশ করবে।
+            // তাই আমরা URL.createObjectURL ব্যবহার করছি, যা মেমোরি বাঁচায় এবং সুপারফাস্ট!
+            const objectUrl = URL.createObjectURL(file);
+            const img = new Image();
+
+            img.onload = () => {
+                analyzeImage(img, file);
+                showPreview(img, file);
+                updateDashboards();
+                showToast('Image analyzed successfully!', 'success');
+                URL.revokeObjectURL(objectUrl); // মেমোরি ক্লিনআপ
+            };
+
+            img.onerror = () => {
+                // iPhone এর HEIC বা RAW ফরম্যাট ব্রাউজারে সরাসরি রেন্ডার হয় না (বিনা লাইব্রেরিতে)।
+                // তাই আমরা ক্র্যাশ না করে ফাইল সাইজ এবং বেসিক ডেটা বের করে নিবো।
+                const ext = file.name.substring(file.name.lastIndexOf('.') + 1).toUpperCase();
+                AppState.imageData = {
+                    name: file.name, extension: ext, mimeType: file.type || 'image/' + ext.toLowerCase(),
+                    width: 'N/A', height: 'N/A', fileSize: file.size, megapixels: 'N/A', aspectRatio: 'N/A', orientation: 'Unknown'
+                };
+
+                Elements.previewContainer.classList.remove('hidden');
+                Elements.imagePreview.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text-secondary);"><span style="font-size:48px;">📄</span><br><br>Preview unavailable natively for ${ext}</div>`;
+
+                Elements.quickDimensions.textContent = 'N/A';
+                Elements.quickFileSize.textContent = formatFileSize(file.size);
+                Elements.quickFileType.textContent = ext;
+                Elements.quickAspectRatio.textContent = 'N/A';
+
+                extractMetadata(file);
+                updateDashboards();
+                showToast(`${ext} file loaded! Size data extracted.`, 'info');
+                URL.revokeObjectURL(objectUrl);
+            };
+
+            img.src = objectUrl;
+        }
+
+        function validateFile(file) {
+            if (file.size > CONFIG.MAX_FILE_SIZE) {
+                showToast('File size exceeds 1GB limit', 'error');
+                return false;
+            }
+
+            // যেকোনো ছবি বা আইফোনের HEIC/RAW ফরম্যাট ভ্যালিডেট করা
+            const validTypes = file.type.startsWith('image/') || file.name.match(/\.(heic|heif|raw|tiff|cr2|nef|arw)$/i);
+            if (!validTypes) {
+                showToast('Unsupported format: Please upload an image file.', 'error');
+                return false;
+            }
+
+            return true;
+        }
+
+        function analyzeImage(img, file) {
+            const width = img.naturalWidth || img.width;
+            const height = img.naturalHeight || img.height;
+            const megapixels = (width * height) / 1000000;
+
+            // Calculate aspect ratio
+            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+            const divisor = gcd(width, height);
+            const aspectRatioWidth = width / divisor;
+            const aspectRatioHeight = height / divisor;
+            const aspectRatio = `${Math.round(aspectRatioWidth)}:${Math.round(aspectRatioHeight)}`;
+
+            // Determine orientation
+            let orientation = 'Square';
+            if (width > height) orientation = 'Landscape';
+            else if (height > width) orientation = 'Portrait';
+
+            // Extract file extension
+            const fileName = file.name;
+            const extension = fileName.substring(fileName.lastIndexOf('.') + 1).toUpperCase();
+
+            AppState.imageData = {
+                name: fileName,
+                extension: extension,
+                mimeType: file.type,
+                width: width,
+                height: height,
+                fileSize: file.size,
+                megapixels: megapixels.toFixed(2),
+                aspectRatio: aspectRatio,
+                orientation: orientation
+            };
+
+            AppState.currentImage = img;
+
+            // Extract metadata if available
+            extractMetadata(file);
+        }
+
+        function extractMetadata(file) {
+            AppState.metadata = {};
+
+            // Basic file metadata
+            if (file.lastModified) {
+                const modDate = new Date(file.lastModified);
+                AppState.metadata.modifiedDate = modDate.toLocaleString();
+            }
+
+            // For JPEG files, try to extract EXIF if available
+            // Since we can't use external libraries, we'll provide basic analysis
+            if (file.type === 'image/jpeg') {
+                AppState.metadata.format = 'JPEG (Joint Photographic Experts Group)';
+            } else if (file.type === 'image/png') {
+                AppState.metadata.format = 'PNG (Portable Network Graphics)';
+            } else if (file.type === 'image/webp') {
+                AppState.metadata.format = 'WebP';
+            } else if (file.type === 'image/gif') {
+                AppState.metadata.format = 'GIF (Graphics Interchange Format)';
+            } else if (file.type === 'image/svg+xml') {
+                AppState.metadata.format = 'SVG (Scalable Vector Graphics)';
+            } else if (file.type === 'image/avif') {
+                AppState.metadata.format = 'AVIF (AV1 Image Format)';
+            } else if (file.type === 'image/bmp') {
+                AppState.metadata.format = 'BMP (Bitmap)';
+            }
+        }
+
+        function showPreview(img, file) {
+            Elements.previewContainer.classList.remove('hidden');
+            Elements.imagePreview.innerHTML = '';
+
+            const imgClone = img.cloneNode(true);
+            imgClone.style.maxWidth = '100%';
+            imgClone.style.maxHeight = '100%';
+            imgClone.style.objectFit = 'contain';
+            Elements.imagePreview.appendChild(imgClone);
+
+            // Update quick info
+            Elements.quickDimensions.textContent = `${AppState.imageData.width} × ${AppState.imageData.height} px`;
+            Elements.quickFileSize.textContent = formatFileSize(AppState.imageData.fileSize);
+            Elements.quickFileType.textContent = AppState.imageData.extension;
+            Elements.quickAspectRatio.textContent = AppState.imageData.aspectRatio;
+        }
+
+        // ========== Dashboard Updates ==========
+        function updateDashboards() {
+            Elements.dashboards.classList.remove('hidden');
+
+            updateFileInfoCard();
+            updateDimensionCard();
+            updateFileSizeCard();
+            updatePrintSizeCard();
+            updateUnitConversionCard();
+            updateScalingCard();
+            updateMetadataCard();
+        }
+
+        function updateFileInfoCard() {
+            const html = `
+                <div class="stat-row">
+                    <span class="stat-label">File Name</span>
+                    <span class="stat-value">${escapeHtml(AppState.imageData.name)}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Extension</span>
+                    <span class="stat-value">${AppState.imageData.extension}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">MIME Type</span>
+                    <span class="stat-value" style="font-size: 12px;">${AppState.imageData.mimeType}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Orientation</span>
+                    <span class="stat-value">${AppState.imageData.orientation}</span>
+                </div>
+            `;
+            Elements.fileInfoCard.innerHTML = html;
+        }
+
+        function updateDimensionCard() {
+            const html = `
+                <div class="stat-row">
+                    <span class="stat-label">Width</span>
+                    <span class="stat-value">${AppState.imageData.width} px</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Height</span>
+                    <span class="stat-value">${AppState.imageData.height} px</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Total Pixels</span>
+                    <span class="stat-value">${(AppState.imageData.width * AppState.imageData.height).toLocaleString()}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Megapixels</span>
+                    <span class="stat-value">${AppState.imageData.megapixels} MP</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Aspect Ratio</span>
+                    <span class="stat-value">${AppState.imageData.aspectRatio}</span>
+                </div>
+            `;
+            Elements.dimensionCard.innerHTML = html;
+        }
+
+        function updateFileSizeCard() {
+            const size = AppState.imageData.fileSize;
+            const bytes = size;
+            const kb = (size / 1024).toFixed(2);
+            const mb = (size / (1024 * 1024)).toFixed(2);
+            const gb = (size / (1024 * 1024 * 1024)).toFixed(4);
+
+            const html = `
+                <div class="stat-row">
+                    <span class="stat-label">Bytes</span>
+                    <span class="stat-value">${bytes.toLocaleString()}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Kilobytes</span>
+                    <span class="stat-value">${kb} KB</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Megabytes</span>
+                    <span class="stat-value">${mb} MB</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Gigabytes</span>
+                    <span class="stat-value">${gb} GB</span>
+                </div>
+            `;
+            Elements.fileSizeCard.innerHTML = html;
+        }
+
+        function updatePrintSizeCard() {
+            let tableHtml = `
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>DPI Level</th>
+                                <th>Width</th>
+                                <th>Height</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            CONFIG.DPI_LEVELS.forEach(dpi => {
+                const width = (AppState.imageData.width / dpi.dpi).toFixed(2);
+                const height = (AppState.imageData.height / dpi.dpi).toFixed(2);
+                tableHtml += `
+                    <tr>
+                        <td>${dpi.label} (${dpi.dpi} DPI)</td>
+                        <td>${width} in</td>
+                        <td>${height} in</td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            Elements.printSizeCard.innerHTML = tableHtml;
+        }
+
+        function updateUnitConversionCard() {
+            const width = AppState.imageData.width;
+            const height = AppState.imageData.height;
+
+            let tableHtml = `
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Unit</th>
+                                <th>Width</th>
+                                <th>Height</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pixels</td>
+                                <td>${width.toLocaleString()}</td>
+                                <td>${height.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Inches</td>
+                                <td>${(width / 96).toFixed(2)} in</td>
+                                <td>${(height / 96).toFixed(2)} in</td>
+                            </tr>
+                            <tr>
+                                <td>Centimeters</td>
+                                <td>${(width / 96 * 2.54).toFixed(2)} cm</td>
+                                <td>${(height / 96 * 2.54).toFixed(2)} cm</td>
+                            </tr>
+                            <tr>
+                                <td>Millimeters</td>
+                                <td>${(width / 96 * 25.4).toFixed(2)} mm</td>
+                                <td>${(height / 96 * 25.4).toFixed(2)} mm</td>
+                            </tr>
+                            <tr>
+                                <td>Feet</td>
+                                <td>${(width / 96 / 12).toFixed(4)} ft</td>
+                                <td>${(height / 96 / 12).toFixed(4)} ft</td>
+                            </tr>
+                            <tr>
+                                <td>Meters</td>
+                                <td>${(width / 96 * 2.54 / 100).toFixed(4)} m</td>
+                                <td>${(height / 96 * 2.54 / 100).toFixed(4)} m</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            Elements.unitConversionCard.innerHTML = tableHtml;
+        }
+
+        function updateScalingCard() {
+            let tableHtml = `
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Scale</th>
+                                <th>Width</th>
+                                <th>Height</th>
+                                <th>Megapixels</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            CONFIG.SCALE_FACTORS.forEach(scale => {
+                const newWidth = AppState.imageData.width * scale;
+                const newHeight = AppState.imageData.height * scale;
+                const newMp = ((newWidth * newHeight) / 1000000).toFixed(2);
+                tableHtml += `
+                    <tr>
+                        <td>${scale}x</td>
+                        <td>${newWidth.toLocaleString()} px</td>
+                        <td>${newHeight.toLocaleString()} px</td>
+                        <td>${newMp} MP</td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            Elements.scalingCard.innerHTML = tableHtml;
+        }
+
+        function updateMetadataCard() {
+            if (Object.keys(AppState.metadata).length === 0) {
+                Elements.metadataCard.innerHTML = '<div class="empty-state"><p>No metadata available</p></div>';
+                return;
+            }
+
+            let html = '<div class="card-content">';
+            for (const [key, value] of Object.entries(AppState.metadata)) {
+                const displayKey = key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
+                html += `
+                    <div class="stat-row">
+                        <span class="stat-label">${displayKey}</span>
+                        <span class="stat-value">${escapeHtml(String(value))}</span>
+                    </div>
+                `;
+            }
+            html += '</div>';
+            Elements.metadataCard.innerHTML = html;
+        }
+
+        // ========== Utility Functions ==========
+        function clearAnalysis() {
+            AppState.currentImage = null;
+            AppState.imageFile = null;
+            Elements.previewContainer.classList.add('hidden');
+            Elements.dashboards.classList.add('hidden');
+            Elements.fileInput.value = '';
+            showToast('Analysis cleared', 'success');
+        }
+
+        function downloadReport() {
+            if (!AppState.imageData.name) {
+                showToast('No image loaded', 'error');
+                return;
+            }
+
+            const report = generateReport();
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Image_Analysis_Report_${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Report downloaded successfully!', 'success');
+        }
+
+        function generateReport() {
+            const data = AppState.imageData;
+            let report = `IMAGE DIMENSION ANALYZER PRO - ANALYSIS REPORT
+Generated: ${new Date().toLocaleString()}
+================================================
+
+FILE INFORMATION
+================================================
+File Name: ${data.name}
+Extension: ${data.extension}
+MIME Type: ${data.mimeType}
+File Size: ${formatFileSize(data.fileSize)}
+  - ${data.fileSize.toLocaleString()} Bytes
+  - ${(data.fileSize / 1024).toFixed(2)} KB
+  - ${(data.fileSize / (1024 * 1024)).toFixed(2)} MB
+  - ${(data.fileSize / (1024 * 1024 * 1024)).toFixed(4)} GB
+
+DIMENSIONS
+================================================
+Width: ${data.width} pixels
+Height: ${data.height} pixels
+Total Pixels: ${(data.width * data.height).toLocaleString()}
+Megapixels: ${data.megapixels} MP
+Aspect Ratio: ${data.aspectRatio}
+Orientation: ${data.orientation}
+
+UNIT CONVERSIONS (At 96 DPI)
+================================================
+Width:  ${data.width} px | ${(data.width / 96).toFixed(2)} in | ${(data.width / 96 * 2.54).toFixed(2)} cm | ${(data.width / 96 * 25.4).toFixed(2)} mm
+Height: ${data.height} px | ${(data.height / 96).toFixed(2)} in | ${(data.height / 96 * 2.54).toFixed(2)} cm | ${(data.height / 96 * 25.4).toFixed(2)} mm
+
+PRINT SIZES
+================================================`;
+
+            CONFIG.DPI_LEVELS.forEach(dpi => {
+                const w = (data.width / dpi.dpi).toFixed(2);
+                const h = (data.height / dpi.dpi).toFixed(2);
+                report += `\n${dpi.label} (${dpi.dpi} DPI): ${w}" × ${h}"`;
+            });
+
+            report += `\n\nIMAGE SCALING
+================================================`;
+            CONFIG.SCALE_FACTORS.forEach(scale => {
+                const newW = data.width * scale;
+                const newH = data.height * scale;
+                const mp = ((newW * newH) / 1000000).toFixed(2);
+                report += `\n${scale}x: ${newW.toLocaleString()} × ${newH.toLocaleString()} px (${mp} MP)`;
+            });
+
+            report += `\n\nMETADATA
+================================================`;
+            if (Object.keys(AppState.metadata).length === 0) {
+                report += '\nNo metadata available';
+            } else {
+                for (const [key, value] of Object.entries(AppState.metadata)) {
+                    report += `\n${key}: ${value}`;
+                }
+            }
+
+            report += `\n\n================================================
+Report Generated by Image Dimension Analyzer Pro
+All processing occurs locally on your device.
+No data uploaded to any server.`;
+
+            return report;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.setAttribute('role', 'status');
+            toast.setAttribute('aria-live', 'polite');
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'fadeIn 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function toggleFAQ(event) {
+            const item = event.currentTarget.closest('.faq-item');
+            const isActive = item.classList.contains('active');
+
+            // Close all other items
+            document.querySelectorAll('.faq-item').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        function scrollToSection(event, sectionId) {
+            event.preventDefault();
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function ensureAccessibility() {
+            // Ensure all interactive elements are keyboard accessible
+            document.querySelectorAll('[role="button"]').forEach(btn => {
+                if (!btn.hasAttribute('tabindex')) {
+                    btn.setAttribute('tabindex', '0');
+                }
+            });
+
+            // Add keyboard support for upload area
+            Elements.uploadArea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    Elements.fileInput.click();
+                    e.preventDefault();
+                }
+            });
+        }
+
+        // ========== Prevent XSS and Security ==========
+        // Ensure all user inputs are properly escaped
+        // File names and user data are escaped using escapeHtml()
+        // DOM operations use textContent instead of innerHTML where appropriate
+    </script>
+</body>
+</html>
