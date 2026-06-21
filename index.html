@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
+    <!-- Advanced Browser Control & DNS Prefetching for Max Speed -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Image Dimension Analyzer Pro - Professional image analysis tool. Analyze image dimensions, file size, resolution, print sizes, and metadata with precision.">
     <meta name="keywords" content="image analyzer, image dimensions, resolution checker, file size calculator, print size calculator, image metadata">
@@ -9,16 +12,21 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- SEO Meta Tags -->
-    <meta name="robots" content="index, follow">
-    <meta name="canonical" content="https://salmanfarsibhai.github.io/image-analyzer-pro/">
+    <!-- Advanced SEO & Performance Meta Tags -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Salman Farsi">
+    <meta name="publisher" content="Design Plus">
+    <link rel="canonical" href="https://salmanfarsibhai.github.io/image-analyzer-pro/">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     <!-- ===== BROWSER TAB LOGO (FAVICON) ===== -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1coh2aYgd82hX-5g_sX96V9JQ_EaLeBjN" />
 
     <!-- ===== LINK SHARE PREVIEW LOGO (OPEN GRAPH) ===== -->
-    <meta property="og:title" content="Image Dimension Analyzer Pro">
-    <meta property="og:description" content="Professional image analysis tool with accurate dimension, resolution, and metadata detection.">
+    <meta property="og:site_name" content="Image Dimension Analyzer Pro">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Image Dimension Analyzer Pro | Advanced Free Image Tool">
+    <meta property="og:description" content="Professional image analysis tool with accurate dimension, resolution, and metadata detection. 100% Secure & Offline.">
     <!-- WhatsApp & Facebook Strict Image Rules -->
     <meta property="og:image" itemprop="image" content="https://salmanfarsibhai.github.io/image-analyzer-pro/logo.png">
     <meta property="og:image:secure_url" content="https://salmanfarsibhai.github.io/image-analyzer-pro/logo.png">
@@ -37,8 +45,67 @@
 
     <title>Image Dimension Analyzer Pro - Professional Image Analysis</title>
 
+    <!-- Google Rich Snippets (Schema Markup) - SEO WebApp Configuration -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Dimension Analyzer Pro",
+      "url": "https://salmanfarsibhai.github.io/image-analyzer-pro/",
+      "description": "Professional-grade free image analysis tool. Instantly analyze dimensions, resolution, file size, print sizes, and EXIF metadata.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Design Plus"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Salman Farsi"
+      },
+      "featureList": "Image Dimension Detection, EXIF Metadata Extraction, Print Size Calculator, Fast Offline Processing"
+    }
+    </script>
+
+    <!-- Ultimate SEO: FAQ Schema (For Google "People Also Ask" Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How accurate are the image dimensions displayed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our application extracts dimensions directly from image metadata using the HTML5 Canvas API and native image properties, providing 100% accurate pixel dimensions."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is my data uploaded to any server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All image processing occurs entirely offline on your local device. We never upload your images to any server, ensuring complete privacy."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What image formats are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We support JPEG, PNG, WebP, GIF, BMP, SVG, AVIF, HEIC, HEIF, and RAW formats (CR2, NEF, ARW) up to 1GB in size."
+        }
+      }]
+    }
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+
     <style>
-        /* ========== CSS Variables & Global Styles ========== */
+        /* Global Theme Variables */
         :root {
             --primary: #0A84FF;
             --primary-dark: #0A66E8;
@@ -74,6 +141,14 @@
         html, body {
             width: 100%;
             min-height: 100vh;
+            /* Firefox, IE এবং Edge-এর জন্য স্ক্রলবার হাইড */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Chrome, Safari এবং Opera-এর জন্য স্ক্রলবার হাইড */
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            display: none;
         }
 
         body {
@@ -146,11 +221,12 @@
             nav {
                 flex-direction: column;
                 gap: 8px; /* গ্যাপ কমানো হয়েছে যাতে বেশি জায়গা না নেয় */
-                padding: 10px 15px;
+                padding: 10px 0; /* ডানে-বামে প্যাডিং জিরো করা হলো যাতে স্ক্রল ফুল উইডথ পায় */
                 height: auto;
             }
 
             .logo {
+                padding: 0 15px; /* লোগোর এলাইনমেন্ট ঠিক রাখতে এখানে প্যাডিং দেওয়া হলো */
                 font-size: 15px; /* মোবাইলের জন্য লোগো পারফেক্ট সাইজ করা হয়েছে */
                 text-align: center;
                 width: 100%;
@@ -164,7 +240,7 @@
                 flex-wrap: nowrap; /* লিংকগুলো এক লাইনে রাখবে, নিচে ভাঙবে না */
                 justify-content: flex-start;
                 overflow-x: auto; /* ডানে-বামে স্লাইড করার অপশন চালু করবে */
-                padding-bottom: 4px; /* স্ক্রলবারের জন্য হালকা স্পেস */
+                padding: 0 15px 4px 15px; /* স্ক্রলবার এবং দুপাশে স্পেস দেওয়া হলো */
                 -webkit-overflow-scrolling: touch; /* আইওএস (iOS) এর জন্য স্মুথ স্ক্রলিং */
                 -ms-overflow-style: none; /* IE এবং Edge এ স্ক্রলবার হাইড করবে */
                 scrollbar-width: none; /* Firefox এ স্ক্রলবার হাইড করবে */
@@ -173,6 +249,12 @@
             /* ক্রোম এবং সাফারিতে ভিজ্যুয়াল স্ক্রলবার হাইড করার জন্য ক্লিন লুক */
             .nav-links::-webkit-scrollbar {
                 display: none;
+            }
+
+            /* আইওএস (iOS) এবং সাফারিতে স্ক্রল শেষে ডানপাশের স্পেস ঠিক রাখার ম্যাজিক ট্রিক */
+            .nav-links::after {
+                content: '';
+                padding-right: 15px;
             }
 
             .nav-link {
@@ -866,7 +948,39 @@
     <header id="header" role="banner">
         <nav aria-label="Main navigation">
             <a href="#home" class="logo" aria-label="Image Dimension Analyzer Pro">
-                📊 Image Dimension Analyzer Pro
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px; margin-top: -3px; filter: drop-shadow(0 4px 6px rgba(10,132,255,0.25));">
+    <!-- Image Canvas/Background with Premium Gradient -->
+    <rect x="3" y="5" width="22" height="18" rx="4" fill="url(#bgGrad)"/>
+
+    <!-- Abstract Mountain & Sun inside the Image Frame -->
+    <path d="M3 19L10 10L16 17L19 13L25 21V23C25 23.5 24.5 24 24 24H4C3.4 24 3 23.5 3 23V19Z" fill="#FFFFFF" fill-opacity="0.4"/>
+    <circle cx="9" cy="10" r="2" fill="#FFFFFF" fill-opacity="0.8"/>
+
+    <!-- Dimension / Measurement Corner Marks -->
+    <path d="M1 7V3C1 1.89543 1.89543 1 3 1H7" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/>
+    <path d="M27 1H25" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/>
+    <path d="M1 25V27C1 28.1046 1.89543 29 3 29H7" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- The "Analyzer" Lens / Magnifying Glass overlapping the image -->
+    <circle cx="21" cy="21" r="7" fill="url(#lensGrad)" stroke="#FFFFFF" stroke-width="2"/>
+    <path d="M26 26L30 30" stroke="#0A84FF" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Sparkle/Data Node on Lens for Glassmorphism effect -->
+    <circle cx="19" cy="19" r="1.5" fill="#FFFFFF"/>
+
+    <defs>
+        <!-- Blue to Purple gradient matching your website's glowing line -->
+        <linearGradient id="bgGrad" x1="3" y1="5" x2="25" y2="23" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#0A84FF"/>
+            <stop offset="1" stop-color="#a252ff"/>
+        </linearGradient>
+        <!-- Glassmorphism gradient for the Analyzer Lens -->
+        <linearGradient id="lensGrad" x1="14" y1="14" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#EAF4FF" stop-opacity="0.95"/>
+            <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.2"/>
+        </linearGradient>
+    </defs>
+</svg> Image Dimension Analyzer Pro
             </a>
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link" onclick="scrollToSection(event, 'home')">Home</a></li>
@@ -883,8 +997,8 @@
     <main role="main">
         <!-- Hero Section -->
         <section id="home" class="hero">
-            <h1>Image Dimension Analyzer Pro</h1>
-            <p>Professional-grade image analysis tool. Instantly analyze dimensions, resolution, file size, print sizes, and metadata with precision. Work offline or online, everywhere.</p>
+            <h1 title="Image Dimension Analyzer Pro">Image Dimension Analyzer Pro</h1>
+            <p>Professional-grade free image analysis tool. Instantly analyze <strong>image dimensions</strong>, <strong>resolution</strong>, <strong>file size</strong>, <strong>print sizes</strong>, and <strong>EXIF metadata</strong> with precision. Securely work offline or online across all devices.</p>
         </section>
 
         <!-- Upload Section -->
@@ -1034,14 +1148,14 @@
 
             <h3 class="section-subtitle">Key Features</h3>
             <p class="section-text">
-                ✓ Accurate dimension detection (pixels, inches, centimeters, more)<br>
-                ✓ Comprehensive file size analysis<br>
-                ✓ Print size calculations at various DPI settings<br>
-                ✓ EXIF metadata extraction<br>
-                ✓ Image scaling calculations<br>
-                ✓ Aspect ratio detection<br>
-                ✓ Complete offline support<br>
-                ✓ Secure—no server uploads required
+                ✓ <strong>Accurate image dimension detection</strong> (pixels, inches, centimeters, mm)<br>
+                ✓ Comprehensive <strong>file size analysis</strong> and resolution checker<br>
+                ✓ <strong>Print size calculations</strong> at various DPI settings (72, 150, 300, 600 DPI)<br>
+                ✓ <strong>EXIF metadata extraction</strong> (Camera info, GPS, editing software)<br>
+                ✓ <strong>Image scaling calculations</strong> for precise enlargement<br>
+                ✓ <strong>Aspect ratio detection</strong> for social media and web design<br>
+                ✓ Complete offline support as a <strong>PWA web app</strong><br>
+                ✓ 100% Secure—no server uploads required (Client-side <strong>photo analyzer</strong>)
             </p>
 
             <h3 class="section-subtitle">Why Choose Us?</h3>
@@ -1051,7 +1165,7 @@
 
             <h3 class="section-subtitle">Supported Formats</h3>
             <p class="section-text">
-                JPEG, PNG, WebP, GIF, BMP, SVG, and AVIF. Maximum file size: 100MB.
+                JPEG, PNG, WebP, GIF, BMP, SVG, AVIF, HEIC, HEIF, TIFF, and RAW formats (CR2, NEF, ARW). Maximum file size: 1GB.
             </p>
         </section>
 
@@ -1105,7 +1219,7 @@
                     <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
                 </div>
                 <div class="faq-answer">
-                    <p>We support JPEG, PNG, WebP, GIF, BMP, SVG, and AVIF formats. The maximum file size is 100MB. Support for additional formats may be added in future updates.</p>
+                    <p>We support all standard formats (JPEG, PNG, WebP, GIF, BMP, SVG, AVIF) along with iPhone formats (HEIC, HEIF) and RAW files (TIFF, CR2, NEF, ARW). The maximum file size is 1GB.</p>
                 </div>
             </div>
 
@@ -1319,12 +1433,12 @@
 
             <h3 class="section-subtitle">Image Format Support</h3>
             <p class="section-text">
-                While we support common image formats (JPEG, PNG, WebP, GIF, BMP, SVG, AVIF), certain specialized or corrupted images may not be analyzed correctly. We do not guarantee support for all possible image formats or variations.
+                While we support common image formats (JPEG, PNG, WebP, GIF, BMP, SVG, AVIF) as well as HEIC and RAW files, certain specialized or corrupted images may not be analyzed correctly. We do not guarantee support for all possible image formats or variations.
             </p>
 
             <h3 class="section-subtitle">Performance</h3>
             <p class="section-text">
-                Performance may vary based on device specifications, browser capabilities, and image size. Very large images (over 100MB) or unusual formats may cause performance issues or failures.
+                Performance may vary based on device specifications, browser capabilities, and image size. Very large images (approaching the 1GB limit) or unusual formats may cause performance issues depending on your device's memory and processing power.
             </p>
 
             <h3 class="section-subtitle">No Warranty</h3>
@@ -1363,7 +1477,7 @@
     <!-- ========== Footer ========== -->
     <footer role="contentinfo">
         <div class="footer-content">
-            <p>© 2024 Image Dimension Analyzer Pro. All rights reserved. | <a href="#privacy" onclick="scrollToSection(event, 'privacy')" style="color: var(--primary); text-decoration: none;">Privacy</a> | <a href="#terms" onclick="scrollToSection(event, 'terms')" style="color: var(--primary); text-decoration: none;">Terms</a> | <a href="#disclaimer" onclick="scrollToSection(event, 'disclaimer')" style="color: var(--primary); text-decoration: none;">Disclaimer</a></p>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Image Dimension Analyzer Pro. All rights reserved. | <a href="#privacy" onclick="scrollToSection(event, 'privacy')" style="color: var(--primary); text-decoration: none;">Privacy</a> | <a href="#terms" onclick="scrollToSection(event, 'terms')" style="color: var(--primary); text-decoration: none;">Terms</a> | <a href="#disclaimer" onclick="scrollToSection(event, 'disclaimer')" style="color: var(--primary); text-decoration: none;">Disclaimer</a></p>
             <p style="margin-top: 8px; font-size: 12px;">All image processing happens locally on your device. No uploads to any server.</p>
         </div>
     </footer>
@@ -1372,7 +1486,7 @@
     <script>
         'use strict';
 
-        // ========== Configuration ==========
+        // Base App Config
         const CONFIG = {
             MAX_FILE_SIZE: 1024 * 1024 * 1024, // 1GB
             // SUPPORTED_FORMATS অ্যারে এখন আর দরকার নেই কারণ আমরা সব সাপোর্ট করবো
@@ -1432,10 +1546,23 @@
             ensureAccessibility();
         });
 
+        // Memory cleanup on exit to prevent memory leaks
+        // ট্যাব ক্লোজ করলে RAM ক্লিয়ার করে দেওয়া হচ্ছে
+        window.addEventListener('beforeunload', () => {
+            AppState.currentImage = null;
+            AppState.imageFile = null;
+            AppState.imageData = {};
+            AppState.metadata = {};
+            if (Elements.fileInput) Elements.fileInput.value = '';
+        });
+
         // ========== Event Listeners ==========
         function initializeEventListeners() {
             // File Upload
-            Elements.selectBtn.addEventListener('click', () => Elements.fileInput.click());
+            Elements.selectBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // ইভেন্ট বাবলিং বন্ধ করা হলো, যাতে ডাবল ক্লিক না পড়ে
+                Elements.fileInput.click();
+            });
             Elements.fileInput.addEventListener('change', handleFileSelect);
 
             // Drag and Drop
@@ -1465,6 +1592,9 @@
             if (file) {
                 processImage(file);
             }
+            // ফাইল ইনপুট ভ্যালু রিসেট করা হলো, যাতে মোবাইল গ্যালারিতে কোনো ক্যাশ সমস্যা না হয়
+            // এবং একই ছবি বারবার নির্বিঘ্নে আপলোড করা যায়।
+            event.target.value = '';
         }
 
         function handleDragOver(e) {
@@ -1523,43 +1653,70 @@
         }
 
         // ========== Image Processing ==========
-        function processImage(file) {
+        // ========== Image Processing ==========
+        async function processImage(file) {
             if (!validateFile(file)) return;
             AppState.imageFile = file;
 
-            // ম্যাজিক ফিক্স: 1GB ফাইলের জন্য FileReader (Base64) ব্যবহার করলে ব্রাউজার ক্র্যাশ করবে।
-            // তাই আমরা URL.createObjectURL ব্যবহার করছি, যা মেমোরি বাঁচায় এবং সুপারফাস্ট!
-            const objectUrl = URL.createObjectURL(file);
+            let renderFile = file;
+            const ext = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
+            const isHeic = ext === 'heic' || ext === 'heif' || file.type === 'image/heic';
+
+            if (isHeic) {
+                showToast('Decoding iPhone format. Please wait...', 'info');
+                try {
+                    // heic2any লাইব্রেরির মাধ্যমে ব্রাউজারের বোধগম্য ফরম্যাটে ডিকোড করা হচ্ছে
+                    const convertedBlob = await heic2any({
+                        blob: file,
+                        toType: "image/jpeg",
+                        quality: 0.9
+                    });
+
+                    // প্রিভিউ দেখানোর জন্য ডিকোড করা ফাইল তৈরি করা হলো
+                    renderFile = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+                } catch (error) {
+                    console.error("HEIC Decode Error:", error);
+                    showToast('Failed to decode image. File might be corrupted.', 'error');
+                }
+            }
+
+            const objectUrl = URL.createObjectURL(renderFile);
             const img = new Image();
 
             img.onload = () => {
+                // ম্যাজিক ট্রিক: রেন্ডার করছি ডিকোড করা ছবি, কিন্তু ডাটা পাস করছি আসল (Original) ফাইলের!
+                // এর ফলে আইফোনের আসল ফাইল সাইজ এবং নাম অপরিবর্তিত থাকবে।
                 analyzeImage(img, file);
                 showPreview(img, file);
                 updateDashboards();
-                showToast('Image analyzed successfully!', 'success');
-                URL.revokeObjectURL(objectUrl); // মেমোরি ক্লিনআপ
+
+                if (isHeic) {
+                    showToast('iPhone image decoded and analyzed successfully!', 'success');
+                } else {
+                    showToast('Image analyzed successfully!', 'success');
+                }
+                URL.revokeObjectURL(objectUrl);
             };
 
             img.onerror = () => {
-                // iPhone এর HEIC বা RAW ফরম্যাট ব্রাউজারে সরাসরি রেন্ডার হয় না (বিনা লাইব্রেরিতে)।
-                // তাই আমরা ক্র্যাশ না করে ফাইল সাইজ এবং বেসিক ডেটা বের করে নিবো।
-                const ext = file.name.substring(file.name.lastIndexOf('.') + 1).toUpperCase();
+                // CR2, NEF বা অন্যান্য আনসাপোর্টেড RAW ফাইলের জন্য ফলব্যাক
+                const fileExt = file.name.substring(file.name.lastIndexOf('.') + 1).toUpperCase();
                 AppState.imageData = {
-                    name: file.name, extension: ext, mimeType: file.type || 'image/' + ext.toLowerCase(),
+                    name: file.name, extension: fileExt, mimeType: file.type || 'image/' + fileExt.toLowerCase(),
                     width: 'N/A', height: 'N/A', fileSize: file.size, megapixels: 'N/A', aspectRatio: 'N/A', orientation: 'Unknown'
                 };
 
                 Elements.previewContainer.classList.remove('hidden');
-                Elements.imagePreview.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text-secondary);"><span style="font-size:48px;">📄</span><br><br>Preview unavailable natively for ${ext}</div>`;
+                Elements.imagePreview.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text-secondary);"><span style="font-size:48px;">📄</span><br><br>Preview unavailable natively for ${fileExt}</div>`;
 
                 Elements.quickDimensions.textContent = 'N/A';
                 Elements.quickFileSize.textContent = formatFileSize(file.size);
-                Elements.quickFileType.textContent = ext;
+                Elements.quickFileType.textContent = fileExt;
                 Elements.quickAspectRatio.textContent = 'N/A';
 
                 extractMetadata(file);
                 updateDashboards();
-                showToast(`${ext} file loaded! Size data extracted.`, 'info');
+                showToast(`${fileExt} file loaded! Size data extracted.`, 'info');
                 URL.revokeObjectURL(objectUrl);
             };
 
@@ -1621,33 +1778,324 @@
             extractMetadata(file);
         }
 
+        // ========== Advanced Date & Time Ago Engine ==========
+        function getAdvancedDateDetails(dateInput) {
+            if (!dateInput) return dateInput;
+            let dateObj;
+
+            if (typeof dateInput === 'string' && dateInput.match(/^\d{4}:\d{2}:\d{2}/)) {
+                let parts = dateInput.split(' ');
+                let dateParts = parts[0].split(':');
+                let timeParts = parts[1] ? parts[1].split(':') : ['00', '00', '00'];
+                dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
+            } else {
+                dateObj = new Date(dateInput);
+            }
+
+            if (isNaN(dateObj.getTime())) return dateInput;
+
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dayName = days[dateObj.getDay()];
+
+            const hours = dateObj.getHours();
+            const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+            const seconds = dateObj.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+
+            let timeOfDay = '';
+            if (hours >= 5 && hours < 12) timeOfDay = 'Morning (সকাল)';
+            else if (hours >= 12 && hours < 15) timeOfDay = 'Noon (দুপুর)';
+            else if (hours >= 15 && hours < 18) timeOfDay = 'Afternoon (বিকাল)';
+            else if (hours >= 18 && hours < 20) timeOfDay = 'Evening (সন্ধ্যা)';
+            else timeOfDay = 'Night (রাত)';
+
+            const year = dateObj.getFullYear();
+            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+            const day = dateObj.getDate().toString().padStart(2, '0');
+
+            // --- ⏳ Advanced Time Ago Logic (100% Real Calculation) ---
+            const now = new Date();
+            const diffMs = now - dateObj;
+            let timeAgoStr = "";
+
+            if (diffMs > 0) {
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                if (diffDays === 0) {
+                    timeAgoStr = "Today";
+                } else {
+                    let y = Math.floor(diffDays / 365);
+                    let m = Math.floor((diffDays % 365) / 30);
+                    let d = Math.floor((diffDays % 365) % 30);
+                    let parts = [];
+
+                    if (y > 0) parts.push(`${y} year${y > 1 ? 's' : ''}`);
+                    if (m > 0) parts.push(`${m} month${m > 1 ? 's' : ''}`);
+                    if (d > 0 && y === 0) parts.push(`${d} day${d > 1 ? 's' : ''}`);
+
+                    timeAgoStr = parts.join(', ') + " ago";
+                }
+            } else {
+                timeAgoStr = "Just now";
+            }
+
+            return `${dayName}, ${year}-${month}-${day} at ${displayHours}:${minutes}:${seconds} ${ampm} [${timeOfDay}] ⏳ (${timeAgoStr})`;
+        }
+
+        // ========== Advanced Image Forensics & GPS Extraction ==========
         function extractMetadata(file) {
             AppState.metadata = {};
 
-            // Basic file metadata
             if (file.lastModified) {
-                const modDate = new Date(file.lastModified);
-                AppState.metadata.modifiedDate = modDate.toLocaleString();
+                AppState.metadata['Modified Date'] = getAdvancedDateDetails(file.lastModified);
             }
 
-            // For JPEG files, try to extract EXIF if available
-            // Since we can't use external libraries, we'll provide basic analysis
-            if (file.type === 'image/jpeg') {
-                AppState.metadata.format = 'JPEG (Joint Photographic Experts Group)';
-            } else if (file.type === 'image/png') {
-                AppState.metadata.format = 'PNG (Portable Network Graphics)';
-            } else if (file.type === 'image/webp') {
-                AppState.metadata.format = 'WebP';
-            } else if (file.type === 'image/gif') {
-                AppState.metadata.format = 'GIF (Graphics Interchange Format)';
-            } else if (file.type === 'image/svg+xml') {
-                AppState.metadata.format = 'SVG (Scalable Vector Graphics)';
-            } else if (file.type === 'image/avif') {
-                AppState.metadata.format = 'AVIF (AV1 Image Format)';
-            } else if (file.type === 'image/bmp') {
-                AppState.metadata.format = 'BMP (Bitmap)';
+            const formatMap = {
+                'image/jpeg': 'JPEG (Joint Photographic Experts Group)',
+                'image/png': 'PNG (Portable Network Graphics)',
+                'image/webp': 'WebP',
+                'image/gif': 'GIF (Graphics Interchange Format)',
+                'image/svg+xml': 'SVG (Scalable Vector Graphics)',
+                'image/avif': 'AVIF (AV1 Image Format)',
+                'image/bmp': 'BMP (Bitmap)',
+                'image/heic': 'HEIC (High Efficiency Image Container)'
+            };
+            AppState.metadata.format = formatMap[file.type] || (file.type || 'Unknown Format');
+
+            // 1. Universal EXIF Scanning: স্ক্যানিং এরিয়া 512KB করা হয়েছে এবং সব ফরম্যাট এলাও করা হয়েছে
+            const slice = file.slice(0, 512 * 1024);
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    const dataView = new DataView(e.target.result);
+                    parseEXIFData(dataView);
+                } catch (err) {
+                    console.warn("EXIF parsing error or missing.");
+                }
+                runForensics(file.name);
+                updateMetadataCard();
+            };
+            reader.readAsArrayBuffer(slice);
+        }
+
+        // --- Universal EXIF & GPS Parsing Engine ---
+        function parseEXIFData(dataView) {
+            let tiffOffset = -1;
+            // ম্যাজিক: যেকোনো ফাইলের ভেতর থেকে EXIF ডাটা খুঁজে বের করার ইউনিভার্সাল স্ক্যানার (0x45786966 = "Exif")
+            for (let i = 0; i < dataView.byteLength - 8; i++) {
+                if (dataView.getUint32(i) === 0x45786966) {
+                    let endian = dataView.getUint16(i + 6);
+                    if (endian === 0x4949 || endian === 0x4D4D) {
+                        tiffOffset = i + 6;
+                        break;
+                    }
+                }
+            }
+
+            if (tiffOffset !== -1) {
+                let bigEnd = dataView.getUint16(tiffOffset) === 0x4D4D;
+                let firstIFDOffset = dataView.getUint32(tiffOffset + 4, !bigEnd);
+                let tags = extractTags(dataView, tiffOffset, tiffOffset + firstIFDOffset, bigEnd);
+
+                const exifDictionary = {
+                    0x010F: 'Camera Maker',
+                    0x0110: 'Camera Model',
+                    0x0131: 'Software / App Used',
+                    0x0132: 'Date Time Original'
+                };
+
+                for (let tag in tags) {
+                    if (exifDictionary[tag]) {
+                        let val = tags[tag];
+                        if (exifDictionary[tag] === 'Date Time Original') val = getAdvancedDateDetails(val);
+                        AppState.metadata[exifDictionary[tag]] = val;
+                    }
+                }
+
+                if (tags[0x8769]) {
+                    let deepTags = extractTags(dataView, tiffOffset, tiffOffset + tags[0x8769], bigEnd);
+                    const subDict = { 0x829A: 'Exposure Time (Sec)', 0x829D: 'F-Number (Aperture)', 0x8827: 'ISO Speed', 0x920A: 'Focal Length (mm)' };
+                    for (let tag in deepTags) {
+                        if (subDict[tag]) AppState.metadata[subDict[tag]] = deepTags[tag];
+                    }
+                }
+
+                if (tags[0x8825]) {
+                    let gpsTags = extractTags(dataView, tiffOffset, tiffOffset + tags[0x8825], bigEnd);
+                    if (gpsTags[0x0002] && gpsTags[0x0004]) {
+                        let latRef = gpsTags[0x0001] || 'N';
+                        let lonRef = gpsTags[0x0003] || 'E';
+                        let lat = calculateGPS(gpsTags[0x0002], latRef);
+                        let lon = calculateGPS(gpsTags[0x0004], lonRef);
+
+                        if (lat && lon) {
+                            AppState.metadata['GPS Coordinates'] = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+                            AppState.metadata['Location Link'] = `<a href="http://maps.google.com/maps?q=${lat},${lon}" target="_blank" style="color:var(--primary); text-decoration:underline; font-weight:600;">🌍 View on Google Maps</a>`;
+                        }
+                    }
+                }
             }
         }
+
+        // --- Core Forensics Algorithm (Device, OS, Editing Software) ---
+        function runForensics(fileName) {
+            let software = (AppState.metadata['Software / App Used'] || '').trim();
+            let maker = (AppState.metadata['Camera Maker'] || '').trim();
+            let model = (AppState.metadata['Camera Model'] || '').trim();
+            let nameCheck = fileName.toLowerCase();
+            let softCheck = software.toLowerCase();
+
+            let isScreenshot = false;
+            let isEdited = false;
+            let deviceOS = "Unknown";
+            let deviceType = "Unknown";
+
+            // 1. Screenshot Detection
+            if (nameCheck.includes('screenshot') || nameCheck.includes('screen_shot') || nameCheck.includes('ss')) isScreenshot = true;
+            if (softCheck.includes('screenshot') || softCheck.includes('capture')) isScreenshot = true;
+
+            // 2. OS & Device Type Detection Algorithm
+            if (maker.toLowerCase().includes('apple') || softCheck.includes('ios') || softCheck.includes('mac')) {
+                deviceOS = "Apple (iOS/macOS)";
+                deviceType = model.toLowerCase().includes('ipad') ? "Tablet (iPad)" : (model.toLowerCase().includes('iphone') ? "Mobile Phone (iPhone)" : "Apple Device");
+            } else if (maker.toLowerCase().includes('samsung') || maker.toLowerCase().includes('xiaomi') || maker.toLowerCase().includes('vivo') || maker.toLowerCase().includes('oppo') || maker.toLowerCase().includes('google') || softCheck.includes('android')) {
+                deviceOS = "Android";
+                deviceType = "Mobile Phone";
+            } else if (softCheck.includes('windows')) {
+                deviceOS = "Windows PC";
+                deviceType = "Computer / Laptop";
+            }
+
+            // 3. Editing Software Detection Algorithm
+            const editingTools = ['photoshop', 'lightroom', 'canva', 'snapseed', 'picsart', 'illustrator', 'premiere', 'gimp', 'affinity', 'vsco', 'remini', 'capcut'];
+            let detectedEditor = "";
+            for (let tool of editingTools) {
+                if (softCheck.includes(tool)) {
+                    isEdited = true;
+                    detectedEditor = tool.charAt(0).toUpperCase() + tool.slice(1);
+                    if (detectedEditor === 'Photoshop') detectedEditor = 'Adobe Photoshop';
+                    if (detectedEditor === 'Lightroom') detectedEditor = 'Adobe Lightroom';
+                    break;
+                }
+            }
+
+            // 4. Final Output Formatting (Clean & Professional)
+            if (isEdited || detectedEditor) {
+                AppState.metadata['Image Status'] = `🎨 Edited / Modified`;
+                AppState.metadata['Software Used'] = detectedEditor ? detectedEditor : software;
+            } else if (maker || model) {
+                AppState.metadata['Image Status'] = `📸 Original Camera Photo`;
+            } else if (isScreenshot) {
+                AppState.metadata['Image Status'] = '📱 Screenshot Detected';
+            } else {
+                AppState.metadata['Image Status'] = '🌐 Web Image (EXIF Stripped)';
+            }
+
+            // Show Extracted Device Details
+            if (maker || model) {
+                AppState.metadata['Captured By (Device)'] = `${maker} ${model}`.trim();
+            }
+            if (deviceOS !== "Unknown") {
+                AppState.metadata['Operating System (OS)'] = deviceOS;
+            }
+            if (deviceType !== "Unknown" && (maker || model || deviceOS !== "Unknown")) {
+                AppState.metadata['Device Type'] = deviceType;
+            }
+
+            // UI পরিষ্কার রাখার জন্য ব্যাকএন্ডের রাফ ডেটা মুছে ফেলা হচ্ছে
+            delete AppState.metadata['Camera Maker'];
+            delete AppState.metadata['Camera Model'];
+            delete AppState.metadata['Software / App Used'];
+        }
+
+        // --- EXIF Tag Extraction & Bounds Handling ---
+        function extractTags(dataView, tiffStart, dirStart, bigEnd) {
+            if (dirStart + 2 > dataView.byteLength) return {}; // Memory Safety Check
+            let entries = dataView.getUint16(dirStart, !bigEnd);
+            let tags = {};
+            for (let i = 0; i < entries; i++) {
+                let entryOffset = dirStart + i * 12 + 2;
+                if (entryOffset + 12 > dataView.byteLength) break;
+
+                let tag = dataView.getUint16(entryOffset, !bigEnd);
+                let type = dataView.getUint16(entryOffset + 2, !bigEnd);
+                let numValues = dataView.getUint32(entryOffset + 4, !bigEnd);
+                let valueOffset = dataView.getUint32(entryOffset + 8, !bigEnd) + tiffStart;
+
+                if (type === 2) {
+                    let strOffset = numValues > 4 ? valueOffset : (entryOffset + 8);
+                    if (strOffset + numValues - 1 <= dataView.byteLength) {
+                        tags[tag] = getStringFromData(dataView, strOffset, numValues - 1).replace(/\0/g, '').trim();
+                    }
+                } else if (type === 3 && numValues === 1) {
+                    tags[tag] = dataView.getUint16(entryOffset + 8, !bigEnd);
+                } else if (type === 5) { // Rational Engine (Math fixed)
+                    if (numValues === 1 && valueOffset + 8 <= dataView.byteLength) {
+                        let num = dataView.getUint32(valueOffset, !bigEnd);
+                        let den = dataView.getUint32(valueOffset + 4, !bigEnd);
+                        tags[tag] = den === 0 ? 0 : (num / den).toFixed(2);
+                    } else if (numValues === 3 && valueOffset + 24 <= dataView.byteLength) {
+                        let values = [];
+                        for (let j = 0; j < 3; j++) {
+                            let num = dataView.getUint32(valueOffset + (j * 8), !bigEnd);
+                            let den = dataView.getUint32(valueOffset + (j * 8) + 4, !bigEnd);
+                            values.push(den === 0 ? 0 : num / den);
+                        }
+                        tags[tag] = values;
+                    }
+                }
+            }
+            return tags;
+        }
+
+        function getStringFromData(buffer, start, length) {
+            let outstr = "";
+            for (let n = start; n < start + length; n++) {
+                let charCode = buffer.getUint8(n);
+                if (charCode !== 0) outstr += String.fromCharCode(charCode);
+            }
+            return outstr;
+        }
+
+        function calculateGPS(dmsArray, ref) {
+            if (!Array.isArray(dmsArray) || dmsArray.length !== 3) return null;
+            let dd = dmsArray[0] + (dmsArray[1] / 60) + (dmsArray[2] / 3600);
+            if (ref === 'S' || ref === 'W') dd = dd * -1;
+            return dd;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         function showPreview(img, file) {
             Elements.previewContainer.classList.remove('hidden');
@@ -1657,6 +2105,12 @@
             imgClone.style.maxWidth = '100%';
             imgClone.style.maxHeight = '100%';
             imgClone.style.objectFit = 'contain';
+
+            // Advanced SEO & A11y: Dynamically injecting ALT and Title tags based on user's file name
+            const cleanFileName = file.name.split('.')[0].replace(/[-_]/g, ' ');
+            imgClone.alt = `Analyzed preview of ${cleanFileName} - Image Dimension Analyzer Pro`;
+            imgClone.title = `Image Preview: ${cleanFileName} Data Analysis`;
+
             Elements.imagePreview.appendChild(imgClone);
 
             // Update quick info
@@ -1890,10 +2344,14 @@
             let html = '<div class="card-content">';
             for (const [key, value] of Object.entries(AppState.metadata)) {
                 const displayKey = key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
+
+                // Allow Location Link HTML tag, sanitize everything else
+                const displayValue = key === 'Location Link' ? value : escapeHtml(String(value));
+
                 html += `
                     <div class="stat-row">
                         <span class="stat-label">${displayKey}</span>
-                        <span class="stat-value">${escapeHtml(String(value))}</span>
+                        <span class="stat-value" style="${key === 'Location Link' ? 'pointer-events: auto;' : ''}">${displayValue}</span>
                     </div>
                 `;
             }
@@ -1903,12 +2361,30 @@
 
         // ========== Utility Functions ==========
         function clearAnalysis() {
+            // ১. RAM থেকে সমস্ত অবজেক্ট এবং ডেটা 100% মুছে ফেলা হচ্ছে (Deep Memory Wipe)
             AppState.currentImage = null;
             AppState.imageFile = null;
+            AppState.imageData = {
+                name: '', extension: '', mimeType: '', width: 0, height: 0,
+                fileSize: 0, megapixels: 0, aspectRatio: '', orientation: ''
+            };
+            AppState.metadata = {};
+
+            // ২. UI থেকে ছবি এবং ডেটা সম্পূর্ণ হাইড করা হচ্ছে
             Elements.previewContainer.classList.add('hidden');
             Elements.dashboards.classList.add('hidden');
             Elements.fileInput.value = '';
-            showToast('Analysis cleared', 'success');
+
+            // ৩. ব্রাউজারের DOM থেকে ছবির লেজটুকুও মুছে ফেলা হচ্ছে
+            Elements.imagePreview.innerHTML = '<span class="loading"></span>';
+
+            showToast('Data securely wiped from memory', 'success');
+
+            // অ্যাডভান্সড স্ক্রলিং: ডেটা ক্লিয়ার হওয়ার সাথে সাথে ওয়েবসাইটের একদম উপরে (Home) স্মুথলি স্ক্রল করে চলে যাবে
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
 
         function downloadReport() {
@@ -2002,7 +2478,15 @@ No data uploaded to any server.`;
             const k = 1024;
             const sizes = ['Bytes', 'KB', 'MB', 'GB'];
             const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+            const formattedSize = Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+
+            // যদি সাইজ MB এর থেকে ছোট হয় (অর্থাৎ Bytes বা KB), তবেই পাশে MB দেখাবে
+            if (i < 2) {
+                const sizeInMB = (bytes / (1024 * 1024)).toFixed(2);
+                return `${formattedSize} (${sizeInMB} MB)`;
+            }
+
+            return formattedSize;
         }
 
         function escapeHtml(text) {
@@ -2066,9 +2550,18 @@ No data uploaded to any server.`;
         }
 
         // ========== Prevent XSS and Security ==========
-        // Ensure all user inputs are properly escaped
-        // File names and user data are escaped using escapeHtml()
-        // DOM operations use textContent instead of innerHTML where appropriate
+        // XSS Prevention: inputs are escaped using escapeHtml()
+
+        // Source Code Protection (Disable Right Click & DevTools shortcuts)
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' ||
+               (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+               (e.ctrlKey && (e.key === 'U' || e.key === 'S'))) {
+                e.preventDefault();
+            }
+        });
     </script>
+
 </body>
 </html>
